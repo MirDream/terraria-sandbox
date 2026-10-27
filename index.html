@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>泰拉瑞亚式 2D 沙盒生存 · TerraSandbox</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    background: #05070c;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", monospace;
+    color: #e8edf7;
+    user-select: none;
+  }
+  #game {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    cursor: crosshair;
+    image-rendering: pixelated;
+  }
+  #hint {
+    position: fixed;
+    left: 50%;
+    bottom: 14px;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: rgba(255,255,255,0.42);
+    letter-spacing: 0.02em;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  #panel {
+    position: fixed;
+    inset: 0;
+    display: none;
+    place-items: center;
+    background: rgba(3, 6, 12, 0.72);
+    backdrop-filter: blur(3px);
+    z-index: 20;
+  }
+  #panel.show { display: grid; }
+  .panel-box {
+    width: min(720px, 92vw);
+    max-height: 82vh;
+    overflow: auto;
+    background: #10141d;
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .panel-box h2 {
+    font-size: 16px;
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+  }
+  .panel-box p.sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 14px;
+  }
+  .recipe {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 12px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 9px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .recipe .cost { color: rgba(255,255,255,0.55); font-size: 12px; }
+  .recipe button {
+    border: 1px solid rgba(255,255,255,0.18);
+    background: #1b2230;
+    color: #e8edf7;
+    padding: 5px 14px;
+    border-radius: 7px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .recipe button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .recipe button:not(:disabled):hover { background: #26303f; }
+  .keys { font-size: 12.5px; line-height: 2; color: rgba(255,255,255,0.62); }
+  .keys b { color: #8fb4ff; display: inline-block; min-width: 96px; }
+</style>
+</head>
+<body>
+  <canvas id="game"></canvas>
+  <div id="hint">A/D 移动 · 空格跳跃 · 左键挖掘/放置/攻击 · 1~0 切换 · E 合成 · H 帮助</div>
+  <div id="panel">
+    <div class="panel-box" id="panelBox"></div>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
